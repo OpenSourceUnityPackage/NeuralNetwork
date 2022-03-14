@@ -1,0 +1,10 @@
+{
+	"name": "open-source-unity-package.neural-network.Editor",
+	"references": [
+		"open-source-unity-package.neural-network.Runtime"
+	],
+	"includePlatforms": [
+		"Editor"
+	],
+	"excludePlatforms": []
+}

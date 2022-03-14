@@ -1,7 +1,7 @@
 {
-  "name": "[YourCompany].[YourPackageName].Tests",
+  "name": "open-source-unity-package.neural-network.Tests",
   "references": [
-    "[YourCompany].[YourPackageName].Runtime"
+    "open-source-unity-package.neural-network.Runtime"
   ],
   "optionalUnityReferences": [
     "TestAssemblies"
