@@ -11,10 +11,10 @@ namespace ANN
         private ArtificialNeuroneNetwork self;
         private SerializedObject selfSeria;
         
-        protected float m_minIntervalInputInit = -0.1f;
-        protected float m_maxIntervalInputInit = 0.1f;
+        protected float m_minIntervalInputInit = 0.1f;
+        protected float m_maxIntervalInputInit = 0.2f;
 
-        public int maxEpoch = 1000;
+        public int maxEpoch = 10000;
         public int currentEpoch = 0;
 
         void OnEnable()
@@ -62,17 +62,17 @@ namespace ANN
         
         public void TrainNeuralNetwork()
         {
-            float prevGain = self.gain;
+            //float prevGain = self.gain;
             for (currentEpoch = 0; currentEpoch < maxEpoch; ++currentEpoch)
             {
-                self.gain = prevGain - prevGain * (1f - currentEpoch / maxEpoch) + 0.001f;
+                //self.gain = prevGain - prevGain * (1f - currentEpoch / maxEpoch) + 0.001f;
                 foreach (TrainingRule rule in self.trainingRules)
                 {
                     self.LearnPatttern(rule.trainingInput, rule.trainingOutput);
                 }
             }
 
-            self.gain = prevGain;
+            //self.gain = prevGain;
         }
     }
 }

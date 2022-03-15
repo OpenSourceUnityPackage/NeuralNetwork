@@ -14,9 +14,9 @@ namespace ANN
     }
     
     [System.Serializable]
-    public class HiddenPerceptrons
+    public class PerceptronLayer
     {
-        public List<Perceptron> perceptrons = new List<Perceptron>();
+        public List<Perceptron> layer = new List<Perceptron>();
     }
     
     /// <summary>
@@ -32,66 +32,42 @@ namespace ANN
         [Range(0.000001f, 1f)]
         public float gain = 0.3f;
         
-        public List<Perceptron> perceptrons = new List<Perceptron>();
-        public List<HiddenPerceptrons> perceptronsLayer = new List<HiddenPerceptrons>();
-        public List<Perceptron> outputPerceptrons = new List<Perceptron>();
+        public List<PerceptronLayer> perceptrons = new List<PerceptronLayer>();
+
+        public PerceptronLayer inputPerceptrons
+        {
+            get => perceptrons.First();
+        }
+        
+        public PerceptronLayer outputPerceptrons
+        {
+            get => perceptrons.Last();
+        }
 
         public void SetupNeuralLink(float min, float max, bool addBias = true)
         {
-            if (perceptronsLayer.Count != 0)
-            {
-                foreach (Perceptron hPerceptron in perceptronsLayer.First().perceptrons)
-                {
-                    hPerceptron.inputs.Clear();
-                    
-                    if(addBias)
-                        AddBias(min, max, hPerceptron);
+            List<Perceptron> prevLayer = inputPerceptrons.layer;
 
-                    foreach (Perceptron iPerceptron in inputPerceptrons)
-                    {
-                        hPerceptron.inputs.Add(new Perceptron.Input{inputPerceptron = iPerceptron, weight = Random.Range(min, max)});
-                    }
-                }
-                
-                int layerCount = perceptronsLayer.Count;
-                for (int i = 1; i < layerCount; i++)
-                {
-                    foreach (Perceptron hPerceptron in perceptronsLayer[i].perceptrons)
-                    {
-                        hPerceptron.inputs.Clear();
-                        if(addBias)
-                            AddBias(min, max, hPerceptron);
-                        
-                        foreach (Perceptron prevHPerceptron in perceptronsLayer[i - 1].perceptrons)
-                        {
-                            hPerceptron.inputs.Add(new Perceptron.Input {inputPerceptron = prevHPerceptron, weight = Random.Range(min, max)});
-                        }
-                    }
-                }
-                
-                foreach (Perceptron oPerceptron  in outputPerceptrons)
-                {
-                    oPerceptron.inputs.Clear();
-                    if(addBias)
-                        AddBias(min, max, oPerceptron);
-                    foreach (Perceptron hPerceptron in perceptronsLayer.Last().perceptrons)
-                    {
-                        oPerceptron.inputs.Add(new Perceptron.Input{inputPerceptron = hPerceptron, weight = Random.Range(min, max)});
-                    }
-                }
-            }
-            else
+            int perceptronsCount = perceptrons.Count;
+            for (int i = 1; i < perceptronsCount; ++i)
             {
-                foreach (Perceptron oPerceptron  in outputPerceptrons)
+                List<Perceptron> layer = perceptrons[i].layer;
+                foreach (Perceptron perceptron in layer)
                 {
-                    oPerceptron.inputs.Clear();
-                    if(addBias)
-                        AddBias(min, max, oPerceptron);
-                    foreach (Perceptron iPerceptron in inputPerceptrons)
+                    perceptron.inputs.Clear();
+                    perceptron.Error = 1f;
+                    
+                    if (addBias)
+                        AddBias(min, max, perceptron);
+
+                    List<Perceptron> prevLayerVal = prevLayer;
+                    foreach (Perceptron prevPerceptron in prevLayerVal)
                     {
-                        oPerceptron.inputs.Add(new Perceptron.Input{inputPerceptron = iPerceptron, weight = Random.Range(min, max)});
+                        perceptron.inputs.Add(new Perceptron.Input
+                            {inputPerceptron = prevPerceptron, weight = Random.Range(min, max)});
                     }
                 }
+                prevLayer = layer;
             }
         }
 
@@ -121,23 +97,20 @@ namespace ANN
         /// <param name="input"></param>
         public void GenerateOutput(List<float> inputs)
         {
-            int iPerceptronCount = inputPerceptrons.Count;
-            for (int i = 0; i < iPerceptronCount; i++)
+            List<Perceptron> inputPerceptronsLayer = inputPerceptrons.layer;
+            for (var i = 0; i < inputPerceptronsLayer.Count; i++)
             {
-                inputPerceptrons[i].State = inputs[i];
+                inputPerceptronsLayer[i].State = inputs[i];
             }
 
-            foreach (HiddenPerceptrons layer in perceptronsLayer)
+            int perceptronsCount = perceptrons.Count;
+            for (int i = 1; i < perceptronsCount; ++i)
             {
-                foreach (Perceptron hPerceptron in layer.perceptrons)
+                List<Perceptron> layer = perceptrons[i].layer;
+                foreach (Perceptron perceptron in layer)
                 {
-                    hPerceptron.FeedForward();
+                    perceptron.FeedForward();
                 }
-            }
-
-            foreach (Perceptron oPerceptron in outputPerceptrons)
-            {
-                oPerceptron.FeedForward();
             }
         }
         
@@ -149,67 +122,36 @@ namespace ANN
         /// <param name="output"></param>
         private void Backpropagation(List<float> outputs)
         {
-            int oPerceptronCount = outputPerceptrons.Count;
-            for (int i = 0; i < oPerceptronCount; i++)
+            List<Perceptron> outputPerceptronsLayer = outputPerceptrons.layer;
+            for (var i = 0; i < outputPerceptronsLayer.Count; i++)
             {
-                Perceptron oPerceptron = outputPerceptrons[i];
+                Perceptron oPerceptron = outputPerceptronsLayer[i];
                 float state = oPerceptron.State;
                 float error = state * (1f - state) * (outputs[i] - state);
 
                 oPerceptron.AdjustWeights(error, gain);
-            };
-
-            if (perceptronsLayer.Count != 0)
-            {
-                foreach (Perceptron hPerceptron in perceptronsLayer.Last().perceptrons)
-                {
-                    float state = hPerceptron.State;
-
-                    float sum = 0f;
-                    foreach (Perceptron oPerceptron in outputPerceptrons)
-                    {
-                        sum += oPerceptron.GetIncomingWeight(hPerceptron) * oPerceptron.Error;
-                    }
-
-                    float error = state * (1f - state) * sum;
-                    hPerceptron.AdjustWeights(error, gain);
-                }
-
-                int layerCount = perceptronsLayer.Count;
-                for (int i = layerCount - 2; i >= 0; i--)
-                {
-                    HiddenPerceptrons layer = perceptronsLayer[i];
-                    HiddenPerceptrons nextLayer = perceptronsLayer[i + 1];
-                    foreach (Perceptron hPerceptron in layer.perceptrons)
-                    {
-                        float state = hPerceptron.State;
-
-                        float sum = 0f;
-                        foreach (Perceptron nextPerceptron in nextLayer.perceptrons)
-                        {
-                            sum += nextPerceptron.GetIncomingWeight(hPerceptron) * nextPerceptron.Error;
-                        }
-
-                        float error = state * (1f - state) * sum;
-                        hPerceptron.AdjustWeights(error, gain);
-                    }
-                }
             }
-            else
+
+            List<Perceptron> nextLayer = outputPerceptronsLayer;
+            int perceptronsCount = perceptrons.Count;
+            for (int i = perceptronsCount - 2; i > 0; --i)
             {
-                foreach (Perceptron iPerceptron in inputPerceptrons)
+                List<Perceptron> layer = perceptrons[i].layer;
+                foreach (Perceptron perceptron in layer)
                 {
-                    float state = iPerceptron.State;
-
-                    float sum = 0f;
-                    foreach (Perceptron oPerceptron in outputPerceptrons)
-                    {
-                        sum += oPerceptron.GetIncomingWeight(iPerceptron) * oPerceptron.Error;
-                    }
-
+                    float sum = nextLayer.Sum(nextPerceptron => nextPerceptron.GetIncomingWeight(perceptron) * nextPerceptron.Error);
+                    float state = perceptron.State;
                     float error = state * (1f - state) * sum;
-                    iPerceptron.AdjustWeights(error, gain);
-                }   
+
+                    if (error == 0f)
+                    {
+                        int a = 0;
+                    }
+                    
+                    perceptron.AdjustWeights(error, gain);
+                }
+
+                nextLayer = layer;
             }
         }
     }

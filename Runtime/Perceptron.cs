@@ -18,20 +18,16 @@ namespace ANN
         private float m_state = 1f;
         public float m_error = 1f;
 
-        public float Error => m_error;
+        public float Error
+        {
+            get => m_error;
+            set => m_error = value;
+        }
 
         public float State
         {
             get => m_state;
-            set
-            {
-                m_state = value;
-
-                if (value > 5)
-                {
-                    int a = 0;
-                }
-            }
+            set => m_state = value;
         }
 
         public void FeedForward()
