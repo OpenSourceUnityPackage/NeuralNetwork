@@ -143,11 +143,6 @@ namespace ANN
                     float state = perceptron.State;
                     float error = state * (1f - state) * sum;
 
-                    if (error == 0f)
-                    {
-                        int a = 0;
-                    }
-                    
                     perceptron.AdjustWeights(error, gain);
                 }
 
