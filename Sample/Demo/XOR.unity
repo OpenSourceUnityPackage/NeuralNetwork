@@ -1028,6 +1028,11 @@ MonoBehaviour:
     - 0
     trainingOutput:
     - 1
+  - trainingInput:
+    - 1
+    - 1
+    trainingOutput:
+    - 0
   gain: 0.3
   perceptrons:
   - layer:
@@ -1040,69 +1045,69 @@ MonoBehaviour:
       - inputPerceptron:
           inputs: []
           m_error: 1
-        weight: 0.19267574
+        weight: 0.9416827
       - inputPerceptron:
           inputs: []
           m_error: 0
-        weight: 0.119500495
+        weight: 0.71353966
       - inputPerceptron:
           inputs: []
           m_error: 0
-        weight: 0.13429545
-      m_error: 1
+        weight: -0.6552229
+      m_error: 0.00000013567619
     - inputs:
       - inputPerceptron:
           inputs: []
           m_error: 1
-        weight: 0.12096566
+        weight: 0.38034815
       - inputPerceptron:
           inputs: []
           m_error: 0
-        weight: 0.14706555
+        weight: 0.6196507
       - inputPerceptron:
           inputs: []
           m_error: 0
-        weight: 0.1160371
-      m_error: 1
+        weight: 0.20435868
+      m_error: -0
   - layer:
     - inputs:
       - inputPerceptron:
           inputs: []
           m_error: 1
-        weight: 0.19809142
+        weight: 0.88028026
       - inputPerceptron:
           inputs:
           - inputPerceptron:
               inputs: []
               m_error: 1
-            weight: 0.19267574
+            weight: 0.9416827
           - inputPerceptron:
               inputs: []
               m_error: 0
-            weight: 0.119500495
+            weight: 0.71353966
           - inputPerceptron:
               inputs: []
               m_error: 0
-            weight: 0.13429545
-          m_error: 1
-        weight: 0.14242923
+            weight: -0.6552229
+          m_error: 0.00000013567619
+        weight: -1.2652706
       - inputPerceptron:
           inputs:
           - inputPerceptron:
               inputs: []
               m_error: 1
-            weight: 0.12096566
+            weight: 0.38034815
           - inputPerceptron:
               inputs: []
               m_error: 0
-            weight: 0.14706555
+            weight: 0.6196507
           - inputPerceptron:
               inputs: []
               m_error: 0
-            weight: 0.1160371
-          m_error: 1
-        weight: 0.10012065
-      m_error: 1
+            weight: 0.20435868
+          m_error: -0
+        weight: 0.8227123
+      m_error: -0.13838758
 --- !u!4 &1431364481
 Transform:
   m_ObjectHideFlags: 0
