@@ -3,10 +3,10 @@ using ANN;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(ArtificialNeuroneNetwork))]
+[RequireComponent(typeof(ArtificialNeuralNetwork))]
 public class ANNDisplayer : MonoBehaviour
 {
-    private ArtificialNeuroneNetwork m_artificialNeuroneNetwork;
+    private ArtificialNeuralNetwork m_artificialNeuroneNetwork;
     public Slider m_inputA;
     public Slider m_inputB;
     public Slider m_output;
@@ -14,7 +14,7 @@ public class ANNDisplayer : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        m_artificialNeuroneNetwork = GetComponent<ArtificialNeuroneNetwork>();
+        m_artificialNeuroneNetwork = GetComponent<ArtificialNeuralNetwork>();
     }
 
     // Update is called once per frame
@@ -22,7 +22,7 @@ public class ANNDisplayer : MonoBehaviour
     {
         m_artificialNeuroneNetwork.inputPerceptrons.layer[0].State = m_inputA.value;
         m_artificialNeuroneNetwork.inputPerceptrons.layer[1].State = m_inputB.value;
-
+        
         List<float> input = new List<float>();
         input.Add(m_inputA.value);
         input.Add(m_inputB.value);

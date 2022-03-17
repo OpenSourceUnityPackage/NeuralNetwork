@@ -1,12 +1,13 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace ANN
 {
-    [System.Serializable]
+    [Serializable]
     public class Perceptron
     {
-        [System.Serializable]
+        [Serializable]
         public class Input
         {
             public Perceptron inputPerceptron;

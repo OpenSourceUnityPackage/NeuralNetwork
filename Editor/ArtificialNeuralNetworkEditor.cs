@@ -1,14 +1,13 @@
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
 namespace ANN
 {
-    [CustomEditor(typeof(ArtificialNeuroneNetwork))]
+    [CustomEditor(typeof(ArtificialNeuralNetwork))]
     [CanEditMultipleObjects]
-    public class ArtificialNeuroneNetworkEditor : Editor
+    public class ArtificialNeuralNetworkEditor : Editor
     {
-        private ArtificialNeuroneNetwork self;
+        private ArtificialNeuralNetwork self;
         private SerializedObject selfSeria;
         
         protected float m_minIntervalInputInit = 0.1f;
@@ -19,7 +18,7 @@ namespace ANN
 
         void OnEnable()
         {
-            self = (ArtificialNeuroneNetwork)target;
+            self = (ArtificialNeuralNetwork)target;
             selfSeria = new SerializedObject(self);
             
 

@@ -1,19 +1,19 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.UIElements;
+using Random = UnityEngine.Random;
 
 namespace ANN
 {
-    [System.Serializable]
+    [Serializable]
     public class TrainingRule
     {
         public List<float> trainingInput = new List<float>();
         public List<float> trainingOutput = new List<float>();
     }
     
-    [System.Serializable]
+    [Serializable]
     public class PerceptronLayer
     {
         public List<Perceptron> layer = new List<Perceptron>();
@@ -22,7 +22,7 @@ namespace ANN
     /// <summary>
     /// </summary>
     /// <see cref="Artificial Intelligence for Games"/>
-    public class ArtificialNeuroneNetwork : MonoBehaviour
+    public class ArtificialNeuralNetwork : MonoBehaviour
     {
 #if UNITY_EDITOR
         [SerializeField]
@@ -142,11 +142,47 @@ namespace ANN
                     float sum = nextLayer.Sum(nextPerceptron => nextPerceptron.GetIncomingWeight(perceptron) * nextPerceptron.Error);
                     float state = perceptron.State;
                     float error = state * (1f - state) * sum;
-
+                    
                     perceptron.AdjustWeights(error, gain);
                 }
 
                 nextLayer = layer;
+            }
+        }
+
+        private void Update()
+        {
+            for (var index = 0; index < perceptrons.Count; index++)
+            {
+                PerceptronLayer layer = perceptrons[index];
+                for (var i = 0; i < layer.layer.Count; i++)
+                {
+                    Perceptron perceptron = layer.layer[i];
+                    for (var index1 = 0; index1 < perceptron.inputs.Count; index1++)
+                    {
+                        Perceptron.Input connection = perceptron.inputs[index1];
+                        if (connection.inputPerceptron != null && connection.inputPerceptron.inputs.Count != 0)
+                        {
+                            bool test = false;
+                            for (var i1 = 0; i1 < perceptrons.Count; i1++)
+                            {
+                                PerceptronLayer layer2 = perceptrons[i1];
+                                for (var index2 = 0; index2 < layer2.layer.Count; index2++)
+                                {
+                                    Perceptron iPerceptron2 = layer2.layer[index2];
+                                    if (connection.inputPerceptron == iPerceptron2)
+                                    {
+                                        test = true;
+                                        break;
+                                    }
+                                }
+                            }
+
+                            if (!test)
+                                break;
+                        }
+                    }
+                }
             }
         }
     }

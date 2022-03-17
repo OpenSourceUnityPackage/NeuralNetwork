@@ -1028,11 +1028,6 @@ MonoBehaviour:
     - 0
     trainingOutput:
     - 1
-  - trainingInput:
-    - 1
-    - 1
-    trainingOutput:
-    - 0
   gain: 0.3
   perceptrons:
   - layer:
@@ -1045,194 +1040,69 @@ MonoBehaviour:
       - inputPerceptron:
           inputs: []
           m_error: 1
-        weight: 0.08618724
+        weight: 0.19267574
       - inputPerceptron:
           inputs: []
           m_error: 0
-        weight: 0.36879325
+        weight: 0.119500495
       - inputPerceptron:
           inputs: []
           m_error: 0
-        weight: 0.38073483
-      m_error: 0.000000019283704
+        weight: 0.13429545
+      m_error: 1
     - inputs:
       - inputPerceptron:
           inputs: []
           m_error: 1
-        weight: 0.09114293
+        weight: 0.12096566
       - inputPerceptron:
           inputs: []
           m_error: 0
-        weight: 0.40708032
+        weight: 0.14706555
       - inputPerceptron:
           inputs: []
           m_error: 0
-        weight: 0.3317592
-      m_error: 0.00000002126916
+        weight: 0.1160371
+      m_error: 1
   - layer:
     - inputs:
       - inputPerceptron:
           inputs: []
           m_error: 1
-        weight: 0.04081925
+        weight: 0.19809142
       - inputPerceptron:
           inputs:
           - inputPerceptron:
               inputs: []
               m_error: 1
-            weight: 0.08618724
+            weight: 0.19267574
           - inputPerceptron:
               inputs: []
               m_error: 0
-            weight: 0.36879325
+            weight: 0.119500495
           - inputPerceptron:
               inputs: []
               m_error: 0
-            weight: 0.38073483
-          m_error: 0.000000019283704
-        weight: 0.999404
-      - inputPerceptron:
-          inputs:
-          - inputPerceptron:
-              inputs: []
-              m_error: 1
-            weight: 0.09114293
-          - inputPerceptron:
-              inputs: []
-              m_error: 0
-            weight: 0.40708032
-          - inputPerceptron:
-              inputs: []
-              m_error: 0
-            weight: 0.3317592
-          m_error: 0.00000002126916
-        weight: 0.9816226
-      m_error: -0
-    - inputs:
-      - inputPerceptron:
-          inputs: []
+            weight: 0.13429545
           m_error: 1
-        weight: -0.28748503
+        weight: 0.14242923
       - inputPerceptron:
           inputs:
           - inputPerceptron:
               inputs: []
               m_error: 1
-            weight: 0.08618724
+            weight: 0.12096566
           - inputPerceptron:
               inputs: []
               m_error: 0
-            weight: 0.36879325
+            weight: 0.14706555
           - inputPerceptron:
               inputs: []
               m_error: 0
-            weight: 0.38073483
-          m_error: 0.000000019283704
-        weight: 0.56337714
-      - inputPerceptron:
-          inputs:
-          - inputPerceptron:
-              inputs: []
-              m_error: 1
-            weight: 0.09114293
-          - inputPerceptron:
-              inputs: []
-              m_error: 0
-            weight: 0.40708032
-          - inputPerceptron:
-              inputs: []
-              m_error: 0
-            weight: 0.3317592
-          m_error: 0.00000002126916
-        weight: 0.6045775
-      m_error: 0.00000024930773
-  - layer:
-    - inputs:
-      - inputPerceptron:
-          inputs: []
+            weight: 0.1160371
           m_error: 1
-        weight: -0.4887498
-      - inputPerceptron:
-          inputs:
-          - inputPerceptron:
-              inputs: []
-              m_error: 1
-            weight: 0.04081925
-          - inputPerceptron:
-              inputs:
-              - inputPerceptron:
-                  inputs: []
-                  m_error: 1
-                weight: 0.08618724
-              - inputPerceptron:
-                  inputs: []
-                  m_error: 0
-                weight: 0.36879325
-              - inputPerceptron:
-                  inputs: []
-                  m_error: 0
-                weight: 0.38073483
-              m_error: 0.000000019283704
-            weight: 0.999404
-          - inputPerceptron:
-              inputs:
-              - inputPerceptron:
-                  inputs: []
-                  m_error: 1
-                weight: 0.09114293
-              - inputPerceptron:
-                  inputs: []
-                  m_error: 0
-                weight: 0.40708032
-              - inputPerceptron:
-                  inputs: []
-                  m_error: 0
-                weight: 0.3317592
-              m_error: 0.00000002126916
-            weight: 0.9816226
-          m_error: -0
-        weight: 2.2607596
-      - inputPerceptron:
-          inputs:
-          - inputPerceptron:
-              inputs: []
-              m_error: 1
-            weight: -0.28748503
-          - inputPerceptron:
-              inputs:
-              - inputPerceptron:
-                  inputs: []
-                  m_error: 1
-                weight: 0.08618724
-              - inputPerceptron:
-                  inputs: []
-                  m_error: 0
-                weight: 0.36879325
-              - inputPerceptron:
-                  inputs: []
-                  m_error: 0
-                weight: 0.38073483
-              m_error: 0.000000019283704
-            weight: 0.56337714
-          - inputPerceptron:
-              inputs:
-              - inputPerceptron:
-                  inputs: []
-                  m_error: 1
-                weight: 0.09114293
-              - inputPerceptron:
-                  inputs: []
-                  m_error: 0
-                weight: 0.40708032
-              - inputPerceptron:
-                  inputs: []
-                  m_error: 0
-                weight: 0.3317592
-              m_error: 0.00000002126916
-            weight: 0.6045775
-          m_error: 0.00000024930773
-        weight: -2.5854228
-      m_error: -0.00000044698936
+        weight: 0.10012065
+      m_error: 1
 --- !u!4 &1431364481
 Transform:
   m_ObjectHideFlags: 0
@@ -1703,53 +1573,3 @@ RectTransform:
   m_AnchoredPosition: {x: -5.0000153, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &2121199827
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2121199829}
-  - component: {fileID: 2121199828}
-  m_Layer: 0
-  m_Name: TestGameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!95 &2121199828
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2121199827}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1753b2d5247774a4187b10c005b30616, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
---- !u!4 &2121199829
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2121199827}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 397.33652, y: 289.70224, z: 156.54425}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
