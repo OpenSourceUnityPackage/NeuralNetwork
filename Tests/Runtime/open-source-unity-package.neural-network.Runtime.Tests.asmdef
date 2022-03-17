@@ -1,0 +1,11 @@
+{
+  "name": "open-source-unity-package.neural-network.Tests",
+  "references": [
+    "open-source-unity-package.neural-network.Runtime"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": []
+}

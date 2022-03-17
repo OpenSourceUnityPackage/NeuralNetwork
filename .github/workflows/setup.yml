@@ -1,6 +1,7 @@
 name: Setup package 📝
 on:
   workflow_dispatch:
+  create:
 
 jobs:
   Setup:
@@ -9,11 +10,16 @@ jobs:
     env:
       # This need to respect the Unity nomenclature (see : https://docs.unity3d.com/Manual/cus-naming.html)
       # Previous name (back slash to include special character):
+      PrevAuthorNameField: \[YourAuthorName\]
       PrevCompanyNameField: \[YourCompany\]
       PrevPackageNameField: \[YourPackageName\]
+      PrevGitURLField: \[YourHTTPSGit\]
+      PrevPackageDisplayNameField: \[YourPackageDisplayName\]
       # Your current settings :
+      AuthorNameField: ${{github.repository_owner}}
       CompanyNameField: open-source-unity-package
-      PackageNameField: package-name
+      PackageNameField: ${{github.event.repository.name}}
+      GitURLField: ${{github.server_url}}/${{github.repository}}.git
     
     steps:
       ###########################
@@ -26,7 +32,7 @@ jobs:
       
       ##########################
       #     Replace field      #
-      ##########################
+      ##########################      
     - name: Replace name
       run: |
         echo ""
@@ -34,14 +40,27 @@ jobs:
         echo "#    Replace field     #"
         echo "#########################"
         echo ""
+        echo ""
+        
+        LowercaseProjectName="$(echo $PackageNameField | sed 's/[A-Z]/-&/g;s/^-//' | tr '[A-Z]' '[a-z]')"
+        
         find . -type f -name "*" ! -path "./.github/*" ! -path "./.git/*" ! -name ".gitignore" | while read FILE ; do
-          sed -i -e "s/$PrevCompanyNameField/$CompanyNameField/" -e "s/$PrevPackageNameField/$PackageNameField/" ${FILE}
-          newfile="$(echo ${FILE} |sed -e "s/$PrevCompanyNameField/$CompanyNameField/" -e "s/$PrevPackageNameField/$PackageNameField/")" ;
+          sed -i -e "s/$PrevCompanyNameField/$CompanyNameField/" -e "s/$PrevPackageNameField/$LowercaseProjectName/" ${FILE}
+          newfile="$(echo ${FILE} |sed -e "s/$PrevCompanyNameField/$CompanyNameField/" -e "s/$PrevPackageNameField/$LowercaseProjectName/")";
           if [ "${FILE}" != "${newfile}" ]; then
               echo "Rename ${FILE} to ${newfile}"
               mv "${FILE}" "${newfile}" ;
           fi
         done
+        
+        echo "Set project display name: $PackageNameField"
+        sed -i "s|$PrevPackageDisplayNameField|$PackageNameField|" package.json
+        
+        echo "Set author : $AuthorNameField"
+        sed -i "s|$PrevAuthorNameField|$AuthorNameField|" package.json
+        
+        echo "Add repository URL: $GitURLField"
+        sed -i "s|$PrevGitURLField|$GitURLField|" package.json
         
       ###########################
       #         Commit          #
@@ -50,7 +69,8 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git commit -m "Add changes" -a
+        git add .
+        git commit -m "Add changes"
         
       #########################
       #         Push          #
