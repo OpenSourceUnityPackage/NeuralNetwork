@@ -28,7 +28,6 @@
     "branches": [
       "master",
       "main",
-      "develop"
       {
         "name": "preview",
         "prerelease": true
